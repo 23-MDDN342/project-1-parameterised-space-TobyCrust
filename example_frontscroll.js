@@ -15,6 +15,7 @@ function draw_one_frame(cur_frac) {
   line(width/2, height/2, width/2, height);
   line(0.40*width, height/2, 0.20*width, height);
   line(0.60*width, height/2, 0.80*width, height);
+  
 
   strokeWeight(10);
   let grid_points = [
@@ -22,7 +23,8 @@ function draw_one_frame(cur_frac) {
     0.53 * height,
     0.60 * height,
     0.75 * height,
-    1.00 * height
+    1.00 * height,
+    1.25 * height
   ]
 
   if (debugView) {
@@ -38,5 +40,6 @@ function draw_one_frame(cur_frac) {
   for(let i=0; i<grid_points.length-1; i++) {
     let cur_grid_line = map(cur_frac, 0, 1, grid_points[i], grid_points[i+1])
     line(0, cur_grid_line, width, cur_grid_line);
+    ellipse(width/3, cur_grid_line, width/10, width/10);
   }
 }
