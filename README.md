@@ -3,3 +3,6 @@
 EXAMPLE README 
 
 just having a nosy around the code at the moment. going to be doing mostly research into what works within the framework of the code and what looks cool. 
+
+
+I think what woould be cool to do since the animation is only going to be one second is to try to have geometric shapes looking like they're shifting up and down. grid like circle that breathes inwards and outwards
