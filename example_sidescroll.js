@@ -1,5 +1,8 @@
+let yoff = 0.0;
+
 function draw_one_frame(cur_frac) {
   let sun_size = height/8;
+  
 
   noStroke();
   // sky
@@ -70,5 +73,40 @@ function draw_one_frame(cur_frac) {
     let cur_x_pos = map(cur_frac, 0, 1, grid_points2[i], grid_points2[i+1])
     rect(cur_x_pos, bottomBlock_y, bottomBlock_size, 2*bottomBlock_size);
   }
+
+
+//----------------------------waves-------------------------------
+
+
+  fill(0, 0, 255, 50);
+  // We are going to draw a polygon out of the wave points
+  beginShape();
+
+  let xoff = 0; // Option #1: 2D Noise
+  // let xoff = yoff; // Option #2: 1D Noise
+
+  // Iterate over horizontal pixels
+  for (let x = 0; x <= width; x += 10) {
+    // Calculate a y value according to noise, map to
+
+    // Option #1: 2D Noise
+    let y = map(noise(xoff, yoff), 0, 1, 200, 300);
+
+    // Option #2: 1D Noise
+    // let y = map(noise(xoff), 0, 1, 200,300);
+
+    // Set the vertex
+    vertex(x, y);
+    // Increment x dimension for noise
+    xoff += 0.05;
+  }
+  // increment y dimension for noise
+  yoff += 0.01;
+  vertex(width, height);
+  vertex(0, height);
+  endShape(CLOSE);
+// }
 }
+
+
 

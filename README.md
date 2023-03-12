@@ -6,3 +6,10 @@ just having a nosy around the code at the moment. going to be doing mostly resea
 
 
 I think what woould be cool to do since the animation is only going to be one second is to try to have geometric shapes looking like they're shifting up and down. grid like circle that breathes inwards and outwards
+
+
+7/03/2023
+Have been playing around with noise. I think that this will definately be useful going forwards. I have a few ideas for how to use it such as having and interesting geometric looping pattern but then adding some noise on top of it to change sertain aspects such as colour or size of the shapes. Also updated my code so it has a github pages link. 
+
+9/03/2023
+Idea could be going through some sort of geometric tunnel useing from scroller template. 

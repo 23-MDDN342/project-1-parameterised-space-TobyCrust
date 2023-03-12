@@ -6,24 +6,6 @@ function draw_one_frame(cur_frac) {
   
   
   
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   noStroke();
   fill(100, 100, 214);
