@@ -1,89 +1,86 @@
-let angle = 0;
+let yoff = 0.0;
+let particles = [];
+const num = 1000;
+const noiseScale = 0.015;
+let speed = 4;
+
+
+var r = 0;
+var g = 0;
+var b = 0;
 
 function draw_one_frame(cur_frac) {
-  let sun_size = canvasHeight/1.5;
-  angleMode(DEGREES);
+
+
+  strokeWeight(4);
+
+  fill(0);
+  rect(0,0, width, height, 10);
   
   
-  
-  
-  noStroke();
-  fill(100, 100, 214);
-  rect(0, 0, width, height);
+ 
+ 
+  for (let i = 0; i < num; i++){
 
-  fill(255, 255, 0);
-  ellipse(width/2, height/2, sun_size);
+    particles.push(createVector(random(width), random(height)));
+  }
 
-  fill(0, 200, 0);
-  rect(0, height/2, width, height/2);
-
-  stroke(0);
-  line(width/2, height/2, width/2, height);
-  line(0.40*width, height/2, 0.20*width, height);
-  line(0.60*width, height/2, 0.80*width, height);
-  line(0.70*width, height/2, 1*width, height);
-  line(0.80*width, height/2, 1.2*width, height);
-  line(0.90*width, height/2, 1.4*width, height);
-  line(0.30*width, height/2, 0*width, height);
-  line(0.20*width, height/2, -0.2*width, height);
-  line(0.10*width, height/2, -0.4*width, height);
+  stroke(5,2,255);
   
 
-  strokeWeight(10);
-  let grid_points = [
-    0.50 * height,
-    0.53 * height,
-    0.60 * height,
-    0.75 * height,
-    1.00 * height,
-    1.25 * height
-  ]
+  for (let i = 0;  i < num; i++){
+    let p = particles[i];
+    point(p.x, p.y+height/3);
+    let n = noise(p.y*noiseScale, p.x*noiseScale);
+    let a = TAU * n; 
+    p.x += cos(a)* speed;
+    p.y += sin(a)*speed;
 
-  if (debugView) {
-    strokeWeight(1);
-    stroke(255, 0, 0);
-    for(let i=0; i<grid_points.length; i++) {
-      line(0, grid_points[i], width, grid_points[i]);
+    if(!onScreen(p)){
+      p.x = random(width);
+      p.y = random(height);
     }
+    function onScreen(v){
+    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height;
+
+    }
+
+    // if(cur_frac <= 26){
+    //   noiseSeed(millis());
+    // }
   }
 
-  strokeWeight(2);
-  stroke(0);
-  for(let i=0; i<grid_points.length-1; i++) {
-    let cur_grid_line = map(cur_frac, 0, 1, grid_points[i], grid_points[i+1])
-    line(0, cur_grid_line, width, cur_grid_line);
-    ellipse(width/3, cur_grid_line, width/10, width/10);
-  }
 
-
-  //star
-  push();
-  translate(width / 1.5, height / 2);
-  rotate(angle);
-  // Scale the coordinates based on the canvas dimensions
-  const scale = min(width, height) / 300;
-  const x = [0, 14, 47, 23, 29, 0, -29, -23, -47, -14];
-  const y = [-50, -20, -15, 7, 40, 25, 40, 7, -15, -20];
-  for (let i = 0; i < 10; i++) {
-    x[i] *= scale;
-    y[i] *= scale;
-  }
   
-  // Draw the star
-  fill(255, 204, 0);
-  noStroke();
-  beginShape();
-  for (let i = 0; i < 10; i++) {
-    vertex(x[i], y[i]);
-  }
-  endShape(CLOSE);
-  
-  // Increase the angle for the next frame
-  angle += 1;
-
-pop();
+//----------------------------waves-------------------------------
 
 
+fill(0, 0, 255, 50);
+// We are going to draw a polygon out of the wave points
+beginShape();
 
+let xoff = 0; // Option #1: 2D Noise
+// let xoff = yoff; // Option #2: 1D Noise
 
+// Iterate over horizontal pixels
+for (let x = 0; x <= width; x += 10) {
+  // Calculate a y value according to noise, map to
+
+  // Option #1: 2D Noise
+  let y = map(noise(xoff, yoff), 0, 1, 200, 300);
+
+  // Option #2: 1D Noise
+  // let y = map(noise(xoff), 0, 1, 200,300);
+
+  // Set the vertex
+  vertex(x, y-height/7);
+  // Increment x dimension for noise
+  xoff += 0.05;
+}
+// increment y dimension for noise
+yoff += 0.01;
+vertex(width, height);
+vertex(0, height);
+endShape(CLOSE);
+// }
 }

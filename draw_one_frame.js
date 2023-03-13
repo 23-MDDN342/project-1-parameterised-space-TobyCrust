@@ -65,7 +65,7 @@ rotate(angle);
 
 
 fill(255, 255, 0, 50);
-arc(0, 0, radius*5, radius*5, -PI/4, PI/4, PIE);
+	arc(0, 0, radius*5, radius*5, -PI/4, PI/4, PIE);
 
 fill(255, 255, 0, 100);
 arc(0, 0, radius*3, radius*3, -PI/4, PI/4, PIE);

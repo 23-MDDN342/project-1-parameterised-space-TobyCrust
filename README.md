@@ -13,3 +13,4 @@ Have been playing around with noise. I think that this will definately be useful
 
 9/03/2023
 Idea could be going through some sort of geometric tunnel useing from scroller template. 
+new idea is to draw the malenium falcon ship and have it periodically jump into hyper space
