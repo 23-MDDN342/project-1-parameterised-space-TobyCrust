@@ -2,12 +2,17 @@
 ### 2023 MDDN342 Project 1: Parameterised Space
 EXAMPLE README 
 
-My design is inspired by fireworks and flowers. I want it to be full of changes, so that every frame can have a fresh feeling.
+just having a nosy around the code at the moment. going to be doing mostly research into what works within the framework of the code and what looks cool. 
 
-In terms of concrete performance, I draw different geometric figures, let them spread out, and overlay their number at the same time, through the time difference to make the whole dynamic background become enthusiastic.
 
-In terms of color, I made different shapes correspond to different colors, and changed the parameters so that they were different every time they appeared, so that there would be differences between different loops.
+I think what woould be cool to do since the animation is only going to be one second is to try to have geometric shapes looking like they're shifting up and down. grid like circle that breathes inwards and outwards
 
-In the initial design, I only added the circle. Through the color change of the circle and the superposition of the movement track, although it has a good effect, I think it is too monotonous.
 
-In the later stages, I added a lot of geometric shapes, which made the color and pattern more variable.
+7/03/2023
+Have been playing around with noise. I think that this will definately be useful going forwards. I have a few ideas for how to use it such as having and interesting geometric looping pattern but then adding some noise on top of it to change sertain aspects such as colour or size of the shapes. Also updated my code so it has a github pages link. 
+
+9/03/2023
+Idea could be going through some sort of geometric tunnel useing from scroller template. 
+new idea is to draw the malenium falcon ship and have it periodically jump into hyper space
+
+idea for water could be have a pirate ship and a normar one fighting and have cannon fire as animation, also have monster underneath

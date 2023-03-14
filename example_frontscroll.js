@@ -1,42 +1,103 @@
+let yoff = 0.0;
+let particles = [];
+const num = 1000;
+const noiseScale = 0.015;
+let speed = 3; // speed particals are moving
+let timer = 0;
+let counter = 100;
+
+var r = 0;
+var g = 0;
+var b = 0;
+
+
 function draw_one_frame(cur_frac) {
-  let sun_size = canvasHeight/8;
+  noiseSeed(timer);
+  
 
-  noStroke();
-  fill(100, 100, 214);
-  rect(0, 0, width, height);
+  setInterval(incrementCounter, 1000);
+  strokeWeight(4);
 
-  fill(255, 255, 0);
-  ellipse(width/2, height/2, sun_size);
+  fill(0);
+  rect(0,0, width, height, 10);
+  fill(250);
+  text(counter, 50, 50);
+  
+ timer += 0.01;
 
-  fill(0, 200, 0);
-  rect(0, height/2, width, height/2);
+ if(counter <= 100){
+  timer -= 100;
+ }
 
-  stroke(0);
-  line(width/2, height/2, width/2, height);
-  line(0.40*width, height/2, 0.20*width, height);
-  line(0.60*width, height/2, 0.80*width, height);
+ function incrementCounter() {
+  counter++;
+}
+ 
+  for (let i = 0; i < num; i++){
 
-  strokeWeight(10);
-  let grid_points = [
-    0.50 * height,
-    0.53 * height,
-    0.60 * height,
-    0.75 * height,
-    1.00 * height
-  ]
+    particles.push(createVector(random(width), random(height)));
+  }
 
-  if (debugView) {
-    strokeWeight(1);
-    stroke(255, 0, 0);
-    for(let i=0; i<grid_points.length; i++) {
-      line(0, grid_points[i], width, grid_points[i]);
+  stroke(5,2,255);
+  
+
+  for (let i = 0;  i < num; i++){ // p = point
+    let p = particles[i];
+    point(p.x, p.y+height/3);
+    let n = noise(p.y*noiseScale, p.x*noiseScale);
+    let a = TAU * n;  //TAU is 2pi
+    p.x += cos(a)* speed;
+    p.y += sin(a)*speed;
+
+    if(!onScreen(p)){  // this recognises if the points are off screen and respawns them inside of the canvas at a random location
+      p.x = random(width);
+      p.y = random(height);
     }
+    function onScreen(v){ // applys a 
+    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height; 
+    
+
+    }
+
+    // if(cur_frac <= 26){
+    //   noiseSeed(millis());
+    // }
   }
 
-  strokeWeight(2);
-  stroke(0);
-  for(let i=0; i<grid_points.length-1; i++) {
-    let cur_grid_line = map(cur_frac, 0, 1, grid_points[i], grid_points[i+1])
-    line(0, cur_grid_line, width, cur_grid_line);
-  }
+
+  
+//----------------------------waves-------------------------------
+
+
+fill(0, 0, 255, 50);
+//draw a polygon out of the wave points
+beginShape();
+
+let xoff = 0; // Option #1: 2D Noise
+// let xoff = yoff; // Option #2: 1D Noise
+
+// Iterate over horizontal pixels
+for (let x = 0; x <= width; x += 10) {
+  // Calculate a y value according to noise, map to
+
+  // Option #1: 2D Noise
+  //let y = map(noise(xoff, yoff), 0, 1, 200, 300); // variation in wave height
+let y = getNoiseValue(x, yoff, cur_frac/5 ,"wavey", height / 2.5, height/ 2,300)
+
+  // Option #2: 1D Noise
+  // let y = map(noise(xoff), 0, 1, 200,300);
+
+  // Set the vertex
+  vertex(x, y-height/7);
+  // Increment x dimension for noise
+  xoff += 0.05;
+}
+// increment y dimension for noise
+yoff += 0.01; //how fast the wave is moving 
+vertex(width, height);
+vertex(0, height); // sets the box of the drawn waves
+endShape(CLOSE);
+// }
+
+//it's going to be hard to have yoff not change when the size of the canvis is differnet because it will be hard to get it in relation to height.
 }
