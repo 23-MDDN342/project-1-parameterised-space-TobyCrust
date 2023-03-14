@@ -96,7 +96,7 @@ function draw_one_frame(cur_frac) {
     // let y = map(noise(xoff), 0, 1, 200,300);
 
     // Set the vertex
-    vertex(x, y);
+    vertex(x, y/(height/100));
     // Increment x dimension for noise
     xoff += 0.05;
   }

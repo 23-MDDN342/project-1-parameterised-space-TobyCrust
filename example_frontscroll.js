@@ -2,7 +2,7 @@ let yoff = 0.0;
 let particles = [];
 const num = 1000;
 const noiseScale = 0.015;
-let speed = 4;
+let speed = 4; // speed particals are moving
 
 
 var r = 0;
@@ -28,20 +28,20 @@ function draw_one_frame(cur_frac) {
   stroke(5,2,255);
   
 
-  for (let i = 0;  i < num; i++){
+  for (let i = 0;  i < num; i++){ // p = point
     let p = particles[i];
     point(p.x, p.y+height/3);
     let n = noise(p.y*noiseScale, p.x*noiseScale);
-    let a = TAU * n; 
+    let a = TAU * n;  //TAU is 2pi
     p.x += cos(a)* speed;
     p.y += sin(a)*speed;
 
-    if(!onScreen(p)){
+    if(!onScreen(p)){  // this recognises if the points are off screen and respawns them inside of the canvas at a random location
       p.x = random(width);
       p.y = random(height);
     }
-    function onScreen(v){
-    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height;
+    function onScreen(v){ // applys a 
+    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height; 
 
     }
 
@@ -56,7 +56,7 @@ function draw_one_frame(cur_frac) {
 
 
 fill(0, 0, 255, 50);
-// We are going to draw a polygon out of the wave points
+//draw a polygon out of the wave points
 beginShape();
 
 let xoff = 0; // Option #1: 2D Noise
@@ -67,7 +67,7 @@ for (let x = 0; x <= width; x += 10) {
   // Calculate a y value according to noise, map to
 
   // Option #1: 2D Noise
-  let y = map(noise(xoff, yoff), 0, 1, 200, 300);
+  let y = map(noise(xoff, yoff), 0, 1, 200, 300); // variation in wave height
 
   // Option #2: 1D Noise
   // let y = map(noise(xoff), 0, 1, 200,300);
@@ -78,9 +78,11 @@ for (let x = 0; x <= width; x += 10) {
   xoff += 0.05;
 }
 // increment y dimension for noise
-yoff += 0.01;
+yoff += 0.01; //how fast the wave is moving 
 vertex(width, height);
-vertex(0, height);
+vertex(0, height); // sets the box of the drawn waves
 endShape(CLOSE);
 // }
+
+//it's going to be hard to have yoff not change when the size of the canvis is differnet because it will be hard to get it in relation to height.
 }
