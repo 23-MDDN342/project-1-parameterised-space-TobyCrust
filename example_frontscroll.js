@@ -1,10 +1,11 @@
 let yoff = 0.0;
 let particles = [];
-const num = 1000;
+var num = 1000;
 const noiseScale = 0.015;
 let speed = 3; // speed particals are moving
 let timer = 0;
 let counter = 100;
+let strokeSize = 4;
 
 var r = 0;
 var g = 0;
@@ -16,7 +17,7 @@ function draw_one_frame(cur_frac) {
   
 
   setInterval(incrementCounter, 1000);
-  strokeWeight(4);
+  strokeWeight(strokeSize);
 
   fill(0);
   rect(0,0, width, height, 10);
@@ -24,6 +25,25 @@ function draw_one_frame(cur_frac) {
   text(counter, 50, 50);
   
  timer += 0.01;
+
+ if(canvasWidth <= 960){
+ num = 1000;
+ strokeSize = 4;
+
+ }
+
+ if(canvasWidth >= 1919){
+  num = 1500;
+  strokeSize = 6;
+
+ }
+
+ 
+ if(canvasWidth >= 2250){
+  num = 2000;
+  strokeSize = 8;
+
+ }
 
  if(counter <= 100){
   timer -= 100;
@@ -39,7 +59,7 @@ function draw_one_frame(cur_frac) {
   }
 
   stroke(5,2,255);
-  
+
 
   for (let i = 0;  i < num; i++){ // p = point
     let p = particles[i];
