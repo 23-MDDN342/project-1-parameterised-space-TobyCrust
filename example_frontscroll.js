@@ -1,9 +1,9 @@
 let yoff = 0.0;
 let particles = [];
-var num = 1000;
+var num = 0;
 const noiseScale = 0.015;
-let speed = 3; // speed particals are moving
-let timer = 0;
+let speed = 3/5; // speed particals are moving
+let timer = 0*5;
 let counter = 100;
 let strokeSize = 4;
 
@@ -13,7 +13,12 @@ var b = 0;
 
 
 function draw_one_frame(cur_frac) {
-  noiseSeed(timer);
+  
+  
+  
+  //---------------------------------------------points-----------------------------------------------
+  
+  noiseSeed(timer/25);
   
 
   setInterval(incrementCounter, 1000);
@@ -46,7 +51,7 @@ function draw_one_frame(cur_frac) {
  }
 
  if(counter <= 100){
-  timer -= 100;
+  timer -= 10;
  }
 
  function incrementCounter() {
@@ -58,7 +63,7 @@ function draw_one_frame(cur_frac) {
     particles.push(createVector(random(width), random(height)));
   }
 
-  stroke(5,2,255);
+  stroke(5,200,255,);
 
 
   for (let i = 0;  i < num; i++){ // p = point
@@ -66,15 +71,15 @@ function draw_one_frame(cur_frac) {
     point(p.x, p.y+height/3);
     let n = noise(p.y*noiseScale, p.x*noiseScale);
     let a = TAU * n;  //TAU is 2pi
-    p.x += cos(a)* speed;
-    p.y += sin(a)*speed;
+    p.x += sin(a)* speed;
+    p.y -= cos(a)*speed;
 
     if(!onScreen(p)){  // this recognises if the points are off screen and respawns them inside of the canvas at a random location
-      p.x = random(width);
-      p.y = random(height);
+      p.x = random(width+100);
+      p.y = random(height/1.5);
     }
     function onScreen(v){ // applys a 
-    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height; 
+    return v.x >=0 && v.x <= width && v.y >=0 && v.y <= height/1.5; 
     
 
     }
@@ -88,8 +93,8 @@ function draw_one_frame(cur_frac) {
   
 //----------------------------waves-------------------------------
 
-
-fill(0, 0, 255, 50);
+stroke(0, 250, 255, 220);
+fill(0, 200, 255, 50);
 //draw a polygon out of the wave points
 beginShape();
 
@@ -102,18 +107,19 @@ for (let x = 0; x <= width; x += 10) {
 
   // Option #1: 2D Noise
   //let y = map(noise(xoff, yoff), 0, 1, 200, 300); // variation in wave height
-let y = getNoiseValue(x, yoff, cur_frac/5 ,"wavey", height / 2.5, height/ 2,300)
+let y = getNoiseValue(x, yoff, cur_frac/4 ,"wavey", height / 2.5, height/ 2, 400)
 
   // Option #2: 1D Noise
   // let y = map(noise(xoff), 0, 1, 200,300);
 
   // Set the vertex
   vertex(x, y-height/7);
+  
   // Increment x dimension for noise
   xoff += 0.05;
 }
 // increment y dimension for noise
-yoff += 0.01; //how fast the wave is moving 
+yoff += 0.001; //how fast the wave is moving 
 vertex(width, height);
 vertex(0, height); // sets the box of the drawn waves
 endShape(CLOSE);

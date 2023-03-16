@@ -16,3 +16,12 @@ Idea could be going through some sort of geometric tunnel useing from scroller t
 new idea is to draw the malenium falcon ship and have it periodically jump into hyper space
 
 idea for water could be have a pirate ship and a normar one fighting and have cannon fire as animation, also have monster underneath
+
+14/03/2023
+have looked into perlin noise
+
+16/03/2023
+big problem of trying to fit it in a one second - a way to olve this could be to have all the particals spawn in a grid at the start and then when they are off screen respawn in those positions again, this would mean that they are looping seemlessly. 
+could have bubbles or something, this would show easing. 
+idea is to have particles be different when they are in the flow zones
+I'm likeing the motion blur and I think it will be useful going forwards. It will make it easier to loop the gif as you can no longer see the induvidual points spawn in.
