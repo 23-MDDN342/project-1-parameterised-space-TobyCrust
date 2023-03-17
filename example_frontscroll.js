@@ -7,10 +7,13 @@ let timer = 0*5;
 let counter = 100;
 let strokeSize = 4;
 
+
+
 var r = 0;
 var g = 0;
 var b = 0;
 
+const ease = new p5.Ease();
 
 function draw_one_frame(cur_frac) {
   
@@ -18,7 +21,7 @@ function draw_one_frame(cur_frac) {
   
   //---------------------------------------------points-----------------------------------------------
   
-  noiseSeed(timer/25);
+  // noiseSeed(timer/25);
   
 
   setInterval(incrementCounter, 1000);
@@ -27,7 +30,7 @@ function draw_one_frame(cur_frac) {
   fill(0);
   rect(0,0, width, height, 10);
   fill(250);
-  text(counter, 50, 50);
+  // text(counter, 50, 50);
   
  timer += 0.01;
 
@@ -93,7 +96,7 @@ function draw_one_frame(cur_frac) {
   
 //----------------------------waves-------------------------------
 
-stroke(0, 250, 255, 220);
+stroke(0, 250, 255, 250);
 fill(0, 200, 255, 50);
 //draw a polygon out of the wave points
 beginShape();
@@ -107,7 +110,8 @@ for (let x = 0; x <= width; x += 10) {
 
   // Option #1: 2D Noise
   //let y = map(noise(xoff, yoff), 0, 1, 200, 300); // variation in wave height
-let y = getNoiseValue(x, yoff, cur_frac/4 ,"wavey", height / 2.5, height/ 2, 400)
+  noiseSeed(2);
+let y = getNoiseValue(x, yoff, cur_frac/3 ,"wavey", height / 2.5, height/ 2, 400)
 
   // Option #2: 1D Noise
   // let y = map(noise(xoff), 0, 1, 200,300);
@@ -126,4 +130,58 @@ endShape(CLOSE);
 // }
 
 //it's going to be hard to have yoff not change when the size of the canvis is differnet because it will be hard to get it in relation to height.
+
+//-----------------------------------------moon/sun--------------------------------
+let going_up = true;
+  let amount_down = 0;
+  if (cur_frac < 0.5) {
+    going_up = true;
+    amount_down = cur_frac * 2;
+  }
+  else {
+    going_up = false;
+    amount_down = (cur_frac-0.5) * 2;
+  }
+
+  let ellipse_radius = int(0.08*height);
+
+  const up_y = int(0.14 * height); // how far up it goes
+  const down_y = int(0.18 * height); // how far down it goes
+
+  const up_y2 = int(0.14 * height); // how far up it goes
+  const down_y2 = int(0.19 * height);
+  
+  const ease_amount_down = ease.circularInOut(amount_down);
+
+
+  if(going_up) {
+    cur_y = map(ease_amount_down, 0, 1, up_y, down_y);
+  }
+  else {
+    cur_y = map(ease_amount_down, 0, 1, down_y, up_y)
+  }
+
+  if(going_up) {
+    cur_y2 = map(ease_amount_down, 0, 1, up_y2, down_y2);
+  }
+  else {
+    cur_y2 = map(ease_amount_down, 0, 1, down_y2, up_y2)
+  }
+
+  // draw the background circles
+  
+  let ellipse_xPos = int(0.5 * width);
+
+
+stroke(0, 200, 255,);
+fill(255);
+ellipse(ellipse_xPos, cur_y2, ellipse_radius * 1.9); // behind
+noStroke();
+ellipse(ellipse_xPos, cur_y, ellipse_radius * 2);
+
+ellipse(ellipse_xPos-height/11, cur_y-30, ellipse_radius * 0.5);
+
+// ellipse(ellipse_xPos-height/8, cur_y-40, ellipse_radius * 0.3);
+
+
 }
