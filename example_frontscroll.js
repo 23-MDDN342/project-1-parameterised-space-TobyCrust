@@ -6,7 +6,7 @@ let speed = 3/5; // speed particals are moving
 let timer = 0*5;
 let counter = 100;
 let strokeSize = 4;
-
+let daytimeC = 200;
 
 
 var r = 0;
@@ -17,6 +17,24 @@ const ease = new p5.Ease();
 
 function draw_one_frame(cur_frac) {
   
+
+  
+//--------------------------------------------gradient background--------------------------------------
+setGradient(0, 0, width, height, color(147, 0, 179), color(0, 0, 0), color(255, 0, 255));   // vertical gradient using three colors
+// fill(0);
+//   rect(0,0, width, height, 10);// rect background
+function setGradient(x, y, w, h, c1, c2, c3) {
+
+  for (let i = y; i <= y + h; i++) {
+    let inter1 = map(i, y, y + h, 0, 5);
+    let inter2 = map(i, y, y + h, 0.5, 1);
+    let inter3 = map(i, y, y + h, 0, 0.5); // change values to draw how far up it goes
+    let c = lerpColor(lerpColor(c1, c2, inter1), c3, inter3);
+    stroke(c);
+    line(x, i, x + w, i);
+  }
+
+}
   
   
   //---------------------------------------------points-----------------------------------------------
@@ -27,8 +45,7 @@ function draw_one_frame(cur_frac) {
   setInterval(incrementCounter, 1000);
   strokeWeight(strokeSize);
 
-  fill(0);
-  rect(0,0, width, height, 10);
+  
   fill(250);
   // text(counter, 50, 50);
   
@@ -66,7 +83,7 @@ function draw_one_frame(cur_frac) {
     particles.push(createVector(random(width), random(height)));
   }
 
-  stroke(5,200,255,);
+  stroke(0, 0, 255);// partical colour
 
 
   for (let i = 0;  i < num; i++){ // p = point
@@ -96,8 +113,8 @@ function draw_one_frame(cur_frac) {
   
 //----------------------------waves-------------------------------
 
-stroke(0, 250, 255, 250);
-fill(0, 200, 255, 50);
+stroke(50, 0, 255); // wave line
+fill(0, 10, 255, 50); // water area
 //draw a polygon out of the wave points
 beginShape();
 
@@ -173,13 +190,13 @@ let going_up = true;
   let ellipse_xPos = int(0.5 * width);
 
 
-stroke(0, 200, 255,);
-fill(255);
+stroke(50, 0, 255,200); // outline 255, 150, 25,
+fill(255); //sun = 255, 255, 0, 255
 ellipse(ellipse_xPos, cur_y2, ellipse_radius * 1.9); // behind
 noStroke();
 ellipse(ellipse_xPos, cur_y, ellipse_radius * 2);
 
-ellipse(ellipse_xPos-height/11, cur_y-30, ellipse_radius * 0.5);
+ellipse(ellipse_xPos-height/11, cur_y-width/30, ellipse_radius * 0.5);
 
 // ellipse(ellipse_xPos-height/8, cur_y-40, ellipse_radius * 0.3);
 

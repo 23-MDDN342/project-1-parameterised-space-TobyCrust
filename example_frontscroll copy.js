@@ -70,7 +70,7 @@ function draw_one_frame(cur_frac) {
   }
   
   // Draw the star
-  fill(255, 204, 0);
+  fill(255, 104, 0);
   noStroke();
   beginShape();
   for (let i = 0; i < 10; i++) {
