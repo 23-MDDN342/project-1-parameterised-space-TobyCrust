@@ -2,11 +2,11 @@ let yoff = 0.0;
 let particles = [];
 var num = 0;
 const noiseScale = 0.015;
-let speed = 3 / 5; // speed particals are moving
-let timer = 0 * 5;
-let counter = 300;
+let speed = 1; // speed particals are moving
+let timer = 0;
 let strokeSize = 4;
-let daytimeC = 200;
+
+
 
 
 const ease = new p5.Ease();
@@ -33,17 +33,18 @@ function draw_one_frame(cur_frac) {
 
   //---------------------------------------------points-----------------------------------------------
 
-  // noiseSeed(timer/25);
+  noiseSeed(timer/25);
 
 
-  setInterval(incrementCounter, 1000);
+  
   strokeWeight(strokeSize);
 
 
   fill(250);
-  // text(counter, 50, 50);
+
 
   timer += 0.01;
+
 
   if (canvasWidth <= 960) {
     num = 1000;
@@ -61,13 +62,8 @@ function draw_one_frame(cur_frac) {
     strokeSize = 8;
   }
 
-  if (counter <= 100) {
-    timer -= 10;
-  }
+ 
 
-  function incrementCounter() {
-    counter++;
-  }
 
   for (let i = 0; i < num; i++) {
     particles.push(createVector(random(width), random(height)));
@@ -93,9 +89,7 @@ function draw_one_frame(cur_frac) {
 
     }
 
-    // if(cur_frac <= 26){
-    //   noiseSeed(millis());
-    // }
+   
   }
 
 
@@ -112,17 +106,28 @@ function draw_one_frame(cur_frac) {
   // Iterate over horizontal pixels
   for (let x = 0; x <= width; x += 10) {
     // Calculate a y value according to noise, map to
+// console.log(cur_frac / 3.5)
+// let noiseLoop;
+// if(cur_frac <= 0.5){
+//    noiseLoop = map(cur_frac, 0, 0.5, 0,1 )
+// }
+// else{
+//   noiseLoop = map(cur_frac, 0.5,1, 1,0 )
 
+// }
+
+    // noiseSeed(21);
+ 
+   
+ 
+    let y = getNoiseValue(x, yoff, timer/4, "w", height / 2.4, height / 2, width/4);
     
-    noiseSeed(21);
-    let y = getNoiseValue(x, yoff, cur_frac / 3, "wavey", height / 2.5, height / 2, 400)
-
 
     // Set the vertex
     vertex(x, y - height / 7);
 
     // Increment x dimension for noise
-    xoff += 0.05;
+    xoff += 0.05 ;
   }
   // increment y dimension for noise
   yoff += 0.001; //how fast the wave is moving 

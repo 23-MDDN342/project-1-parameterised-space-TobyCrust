@@ -25,3 +25,7 @@ big problem of trying to fit it in a one second - a way to olve this could be to
 could have bubbles or something, this would show easing. 
 idea is to have particles be different when they are in the flow zones
 I'm likeing the motion blur and I think it will be useful going forwards. It will make it easier to loop the gif as you can no longer see the induvidual points spawn in.
+
+
+Hype up read me for hand it: - write it as a portfolio type thing describe what it is and how I made it. 
+markdown
