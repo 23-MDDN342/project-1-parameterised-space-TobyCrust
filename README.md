@@ -3,5 +3,5 @@
 
 This is a p5.js sketch that produces a zoom background. It is parameterised to work on any scale. The sketch uses perlin noise to create a underwater flowing effect. The dots flow between differnt noise maps every 5 seconds. The end result is an otherworldly underwater animation.
 
-Made by Toby Crust. 
+School of fish - Made by Toby Crust. 
 
