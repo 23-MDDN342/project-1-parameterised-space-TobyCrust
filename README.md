@@ -29,3 +29,5 @@ I'm likeing the motion blur and I think it will be useful going forwards. It wil
 
 Hype up read me for hand it: - write it as a portfolio type thing describe what it is and how I made it. 
 markdown
+my project uses noise maps that draws particals along. 
+This is a p5.js sketch that produces a zoom background. It is parameterised to work on any scale. The sketch uses perlin noise to create a underwater flowing effect. The over all effect rpduces a calm mood
