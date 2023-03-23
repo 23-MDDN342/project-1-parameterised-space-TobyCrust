@@ -1,42 +1,91 @@
+var x=300;
+var y=300;
+var a=100;
+var b=100;
+
+let angle = 0;
+let radius = 60;
+let direction = 1;
+let speed = 0.02;
+
 function draw_one_frame(cur_frac) {
-  let sun_size = canvasHeight/8;
+//   background(255);
+noStroke()
+let backgroundcolour = color("#49D49D")
+fill(backgroundcolour)
+rect (0,0,width, height)
 
-  noStroke();
-  fill(100, 100, 214);
-  rect(0, 0, width, height);
+let squiggleFrame = cur_frac
 
-  fill(255, 255, 0);
-  ellipse(width/2, height/2, sun_size);
+let mainColor = color('#558564')
+let backupColor = color('#69EBD0')
 
-  fill(0, 200, 0);
-  rect(0, height/2, width, height/2);
 
-  stroke(0);
-  line(width/2, height/2, width/2, height);
-  line(0.40*width, height/2, 0.20*width, height);
-  line(0.60*width, height/2, 0.80*width, height);
+let noiseColor = getNoiseValue(0, 0, 0.8, "noiseColor", 0, 1, 1)
+let noiseyColor;
 
-  strokeWeight(10);
-  let grid_points = [
-    0.50 * height,
-    0.53 * height,
-    0.60 * height,
-    0.75 * height,
-    1.00 * height
-  ]
+let circSize = width / 100
+let spacingSize = width / 29
 
-  if (debugView) {
-    strokeWeight(1);
-    stroke(255, 0, 0);
-    for(let i=0; i<grid_points.length; i++) {
-      line(0, grid_points[i], width, grid_points[i]);
-    }
-  }
 
-  strokeWeight(2);
-  stroke(0);
-  for(let i=0; i<grid_points.length-1; i++) {
-    let cur_grid_line = map(cur_frac, 0, 1, grid_points[i], grid_points[i+1])
-    line(0, cur_grid_line, width, cur_grid_line);
-  }
+
+fill(mainColor)
+
+for (let accross = 1; accross < width / spacingSize; accross ++)
+	for (let down = 1; down +1 < height / spacingSize; down ++){
+
+	noiseColor = getNoiseValue(spacingSize*accross, spacingSize*down, 0.8, "noiseColor", 0, 1, 400)
+
+	noiseyColor = lerpColor(mainColor, backupColor, noiseColor)
+	fill(noiseyColor)
+	ellipse(spacingSize*accross, spacingSize*down, circSize)
+
+	push();
+	translate(0, 0);
+	rotate(angle);
+	// Draw the searchlight
+
+
+	fill(255, 255, 0, 50);
+	arc(spacingSize*accross, spacingSize*down, radius*5, radius*5, -PI/4, PI/4, PIE);
+	pop();
+
+	if (noiseColor >= 0.8){
+		fill(225)
+		ellipse(spacingSize*accross, spacingSize*down, circSize/2)
+		
+	}
+
+}
+
+push();
+translate(width/2, height/2);
+rotate(angle);
+// Draw the searchlight
+
+
+fill(255, 255, 0, 50);
+	arc(0, 0, radius*5, radius*5, -PI/4, PI/4, PIE);
+
+fill(255, 255, 0, 100);
+arc(0, 0, radius*3, radius*3, -PI/4, PI/4, PIE);
+
+fill(255, 255, 0, 150);
+
+arc(0, 0, radius*2, radius*2, -PI/4, PI/4, PIE);
+
+fill(150);
+
+ellipse(0,0, 60, 60)
+
+pop();
+
+// Update the angle of rotation
+angle += direction * speed;
+if (angle > PI/4 || angle < -PI/4) {
+  direction *= -1;
+}
+
+
+
 }

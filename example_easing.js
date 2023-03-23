@@ -17,7 +17,7 @@ function draw_one_frame(cur_frac) {
   const left_x = int(0.15 * width);
   const right_x = int(0.85 * width);
 
-  line(left_x - ellipse_radius, 0, left_x - ellipse_radius, height);
+  // line(left_x - ellipse_radius, 0, left_x - ellipse_radius, height);
   line(right_x + ellipse_radius, 0, right_x + ellipse_radius, height);
 
   const ease_amount_across = ease.circularInOut(amount_across); // OK
