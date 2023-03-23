@@ -2,7 +2,7 @@ let yoff = 0.0;
 let particles = [];
 var num = 0;
 const noiseScale = 0.015;
-let speed = 1; // speed particals are moving
+let speed = 6; // speed particals are moving
 let timer = 0;
 let strokeSize = 4;
 let purple = 0;
@@ -14,8 +14,7 @@ function draw_one_frame(cur_frac) {
 
 	//--------------------------------------------gradient background--------------------------------------
 	setGradient(0, 0, width, height, color(147, 0, 179), color(0, 0, 0), color(255, 0, 255));   // vertical gradient using three colors
-	// fill(0);
-	//   rect(0,0, width, height, 10);// rect background
+	
 	function setGradient(x, y, w, h, c1, c2, c3) {
 
 		for (let i = y; i <= y + h; i++) {
@@ -30,7 +29,7 @@ function draw_one_frame(cur_frac) {
 
 	//---------------------------------------------points-----------------------------------------------
 
-	noiseSeed(timer / 25);
+	noiseSeed(timer/5); //periodically changes what noise map there is
 
 	strokeWeight(strokeSize);
 
@@ -39,23 +38,24 @@ function draw_one_frame(cur_frac) {
 	timer += 0.01;
 
 	if (canvasWidth <= 960) { //change the stroke size depending on the canvas size
-		num = 1000;
+		num = 1500;
 		strokeSize = 4;
-
+		speed = 1;
 	}
 
 	if (canvasWidth >= 1919) {
 		num = 1500;
 		strokeSize = 8;
 		NS = 2
+		speed = 2
 	}
 
 	if (canvasWidth >= 2250) {
-		num = 2000;
+		num = 1500;
 		strokeSize = 9;
 		NS = 2.34375; // 2250 / 960 = 2.34375
+		speed = 2.34375
 	}
-
 
 	for (let i = 0; i < num; i++) {
 		particles.push(createVector(random(width), random(height)));
@@ -78,7 +78,6 @@ function draw_one_frame(cur_frac) {
 		function onScreen(v) { // applys a 
 			return v.x >= 0 && v.x <= width && v.y >= 0 && v.y <= height / 1.5;
 
-
 		}
 
 	}
@@ -87,14 +86,13 @@ function draw_one_frame(cur_frac) {
 
 	stroke(50, 0, 255); // wave line
 	fill(0, 10, 255, 50); // water area
-	//draw a polygon out of the wave points
+	
 	beginShape();
 	let xoff = 0;
 
 	for (let x = 0; x <= width; x += 10) {
 
 		let y = getNoiseValue(x, yoff, timer/10, "w", height / 2.4, height / 2, width / 4); 
-
 
 		// Set the vertex
 		vertex(x, y - height / 7);
@@ -107,10 +105,7 @@ function draw_one_frame(cur_frac) {
 	vertex(width, height);
 	vertex(0, height); // sets the box of the drawn waves
 	endShape(CLOSE);
-	// }
-
-	//it's going to be hard to have yoff not change when the size of the canvis is differnet because it will be hard to get it in relation to height.
-
+	
 	//-----------------------------------------moon/sun--------------------------------
 	let going_up = true;
 	let amount_down = 0;
@@ -169,4 +164,3 @@ function draw_one_frame(cur_frac) {
 	fill(255);
 	ellipse(ellipse_xPos - height / 11, cur_y - width / 30, ellipse_radius * 0.5);
 }
-
